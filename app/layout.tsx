@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Playfair_Display, Plus_Jakarta_Sans } from 'next/font/google';
+import Script from 'next/script';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -48,7 +49,29 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${playfair.variable} ${plusJakarta.variable}`}>
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-PHZTGHVB"
+          strategy="afterInteractive"
+        />
+        <Script id="google-tag-manager" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+          `}
+        </Script>
+      </head>
       <body className="bg-brand-off-white text-brand-text font-sans antialiased min-h-screen flex flex-col">
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-PHZTGHVB"
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          />
+        </noscript>
         <Header />
         <main className="flex-grow">{children}</main>
         <Footer />
